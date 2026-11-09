@@ -1,0 +1,746 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[🎃] Emergency São Paulo — Roblox</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --laranja-tema: #FF6B00;
+            --roxo-halloween: #6A0DAD;
+            --roxo-escuro: #3B0764;
+            --preto-fundo: #12121F;
+            --cinza-escuro: #1E1E2F;
+            --branco: #FFFFFF;
+            --dourado: #FFD700;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--preto-fundo);
+            color: var(--branco);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* TELA DE LOGIN */
+
+        .tela-login {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at top,
+                var(--roxo-halloween),
+                var(--preto-fundo) 70%
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .tela-login.escondida {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .caixa-login {
+            background: var(--cinza-escuro);
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            border: 2px solid var(--laranja-tema);
+            box-shadow: 0 0 30px rgba(255, 107, 0, 0.25);
+            text-align: center;
+            width: 90%;
+            max-width: 420px;
+        }
+
+        .assinatura-topo {
+            color: var(--laranja-tema);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .caixa-login h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8rem;
+            color: var(--laranja-tema);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitulo {
+            color: #B0B0B0;
+            margin-bottom: 2rem;
+        }
+
+        .grupo-input {
+            margin-bottom: 1rem;
+        }
+
+        .grupo-input input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid #444466;
+            border-radius: 10px;
+            background: #252538;
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .grupo-input input:focus {
+            outline: none;
+            border-color: var(--laranja-tema);
+        }
+
+        .aviso-erro {
+            color: #FF6B6B;
+            margin: 0.8rem 0 1.2rem;
+            min-height: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .aviso-erro.visivel {
+            opacity: 1;
+        }
+
+        .btn-entrar {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--laranja-tema), #FF8C00);
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .btn-entrar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 0, 0.35);
+        }
+
+        /* CONTEÚDO DO SITE */
+
+        .conteudo-site {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .conteudo-site.visivel {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        header {
+            background: linear-gradient(
+                135deg,
+                var(--roxo-escuro),
+                var(--preto-fundo)
+            );
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            border-bottom: 2px solid var(--laranja-tema);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--laranja-tema);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--branco);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--laranja-tema);
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .saudacao-usuario {
+            color: var(--dourado);
+            font-weight: 600;
+        }
+
+        .hero {
+            margin-top: 80px;
+            padding: 5rem 0;
+            background: radial-gradient(
+                circle at top,
+                var(--roxo-halloween),
+                var(--preto-fundo) 70%
+            );
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.8rem;
+            background: linear-gradient(to right, var(--laranja-tema), var(--dourado));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #DCDCDC;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--laranja-tema), #FF8C00);
+            color: white;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-secundario {
+            background: transparent;
+            border: 2px solid var(--laranja-tema);
+            color: var(--laranja-tema);
+            margin-left: 1rem;
+        }
+
+        .btn-secundario:hover {
+            background: var(--laranja-tema);
+            color: white;
+        }
+
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-family: 'Fredoka', sans-serif;
+            color: var(--laranja-tema);
+            margin-bottom: 3rem;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--cinza-escuro);
+            border-radius: 12px;
+            padding: 2rem;
+            border-top: 3px solid var(--roxo-halloween);
+        }
+
+        .card h3 {
+            color: var(--laranja-tema);
+            margin-bottom: 1rem;
+        }
+
+        .aviso-beta {
+            background: rgba(106, 13, 173, 0.2);
+            border: 1px solid var(--roxo-halloween);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .evento {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 107, 0, 0.2),
+                rgba(106, 13, 173, 0.2)
+            );
+            border: 2px solid var(--laranja-tema);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .contagem {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dourado);
+            margin: 1rem 0;
+        }
+
+        footer {
+            background: #0A0A14;
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 2px solid var(--roxo-halloween);
+        }
+
+        .assinatura {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: var(--laranja-tema);
+            font-weight: 600;
+        }
+
+        /* RESPONSIVIDADE */
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--roxo-escuro);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .btn-secundario {
+                margin-left: 0;
+                margin-top: 1rem;
+                display: inline-block;
+            }
+
+            .saudacao-usuario {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TELA DE LOGIN -->
+
+    <div class="tela-login" id="telaLogin">
+        <div class="caixa-login">
+
+            <p class="assinatura-topo">
+                💜 Site feito pela UzRoxo 💜
+            </p>
+
+            <h2>🎃 Bem-vindo(a)!</h2>
+
+            <p class="subtitulo">
+                Digite seu nome para acessar o site oficial
+            </p>
+
+            <div class="grupo-input">
+                <input
+                    type="text"
+                    id="campoUsuario"
+                    placeholder="Digite seu nome de usuário"
+                    autocomplete="off"
+                >
+            </div>
+
+            <p class="aviso-erro" id="avisoErro"></p>
+
+            <button class="btn-entrar" id="btnEntrar" type="button">
+                Entrar 🚪
+            </button>
+
+        </div>
+    </div>
+
+    <!-- CONTEÚDO DO SITE -->
+
+    <div class="conteudo-site" id="conteudoSite">
+
+        <header>
+            <div class="container">
+
+                <nav>
+
+                    <a href="#" class="logo">
+                        🎃 Emergency SP
+                    </a>
+
+                    <span class="saudacao-usuario" id="saudacaoUsuario"></span>
+
+                    <div class="menu-btn" id="menuBtn">
+                        ☰
+                    </div>
+
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#sobre">Sobre</a></li>
+                        <li><a href="#eventos">Eventos</a></li>
+                        <li><a href="#atualizacoes">Atualizações</a></li>
+                        <li><a href="#comunidade">Comunidade</a></li>
+                    </ul>
+
+                </nav>
+
+            </div>
+        </header>
+
+        <!-- INÍCIO -->
+
+        <section class="hero" id="inicio">
+
+            <div class="container">
+
+                <h1>[🎃] Emergency São Paulo</h1>
+
+                <p>
+                    Explore as ruas da cidade, pegue empregos,
+                    dirija carros e viva aventuras incríveis no
+                    maior simulador de roleplay do Roblox! 👻🚗
+                </p>
+
+                <a
+                    href="https://www.roblox.com/games/12480068360/Emergency-S-o-Paulo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn"
+                >
+                    🎮 Jogar Agora
+                </a>
+
+                <a
+                    href="https://www.roblox.com/communities/15260435/Emergency-S-o-Paulo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-secundario"
+                >
+                    👥 Comunidade Oficial
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- SOBRE -->
+
+        <section id="sobre">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    Sobre o Jogo 🕹️
+                </h2>
+
+                <div class="aviso-beta">
+                    🚧 <strong>O jogo está em fase BETA!</strong>
+                    Novas atualizações, mapas e funcionalidades
+                    estão chegando o tempo todo 🚀
+                </div>
+
+                <div class="cards">
+
+                    <div class="card">
+                        <h3>🚗 Simulação Realista</h3>
+                        <p>
+                            Dirija por ruas inspiradas em São Paulo,
+                            aceite trabalhos locais e vivencie a
+                            atmosfera acolhedora da cidade.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <h3>👮‍♂️ Trabalhos e Funções</h3>
+                        <p>
+                            Seja policial, bombeiro, motorista e muito
+                            mais! Ganhe dinheiro e evolua sua experiência
+                            dentro do jogo.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎭 Roleplay Completo</h3>
+                        <p>
+                            Interaja com outros jogadores, crie histórias
+                            e faça parte de uma comunidade em constante
+                            crescimento!
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- EVENTOS -->
+
+        <section id="eventos" style="background: var(--cinza-escuro);">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    🎃 Eventos & Novidades
+                </h2>
+
+                <div class="evento">
+
+                    <h3 style="font-size: 1.5rem; color: var(--laranja-tema);">
+                        🍬 Evento de Halloween 2026 — Atualização B 1.7
+                    </h3>
+
+                    <p>
+                        Encontre todos os doces espalhados pelo mapa
+                        e ganhe recompensas incríveis!
+                    </p>
+
+                    <div class="contagem">
+                        🏆 Prêmio: R$ 40.000 no jogo + Badge Exclusiva
+                    </div>
+
+                    <p>
+                        ⏳ Válido até:
+                        <strong>10 de Novembro de 2026</strong>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ATUALIZAÇÕES -->
+
+        <section id="atualizacoes">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    🚀 Atualizações
+                </h2>
+
+                <div class="aviso-beta">
+                    Fique de olho nas novidades e nas próximas
+                    atualizações do Emergency São Paulo!
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- COMUNIDADE -->
+
+        <section id="comunidade">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    💜 Junte-se à Comunidade
+                </h2>
+
+                <p style="text-align:center; margin-bottom: 2rem;">
+                    Converse com outros jogadores e fique por dentro de tudo!
+                </p>
+
+                <div style="text-align:center;">
+
+                    <a
+                        href="https://www.roblox.com/communities/15260435/Emergency-S-o-Paulo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn"
+                    >
+                        🔗 Entrar na Comunidade Oficial
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- RODAPÉ -->
+
+        <footer>
+
+            <div class="container">
+
+                <p style="font-size: 1.3rem; font-family: 'Fredoka', sans-serif; color: var(--laranja-tema);">
+                    🎃 Emergency São Paulo
+                </p>
+
+                <p class="assinatura">
+                    💜 Site feito pela UzRoxo 💜
+                </p>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT CORRIGIDO -->
+
+    <script>
+
+        // ELEMENTOS DO SITE
+
+        const telaLogin = document.getElementById('telaLogin');
+        const conteudoSite = document.getElementById('conteudoSite');
+        const campoUsuario = document.getElementById('campoUsuario');
+        const avisoErro = document.getElementById('avisoErro');
+        const btnEntrar = document.getElementById('btnEntrar');
+        const saudacaoUsuario = document.getElementById('saudacaoUsuario');
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        // FUNÇÃO DE LOGIN
+
+        function entrar() {
+
+            const nome = campoUsuario.value.trim();
+
+            // Verifica se o campo está vazio
+
+            if (nome === '') {
+
+                avisoErro.textContent =
+                    '⚠️ É necessário digitar um nome de usuário!';
+
+                avisoErro.classList.add('visivel');
+
+                campoUsuario.focus();
+
+                return;
+            }
+
+            // Verifica o tamanho do nome
+
+            if (nome.length <= 5) {
+
+                avisoErro.textContent =
+                    '⚠️ O nome precisa ter mais de 5 caracteres!';
+
+                avisoErro.classList.add('visivel');
+
+                campoUsuario.focus();
+
+                return;
+            }
+
+            // LOGIN APROVADO
+
+            avisoErro.classList.remove('visivel');
+
+            saudacaoUsuario.textContent = `👋 Olá, ${nome}!`;
+
+            // Esconde a tela de login
+
+            telaLogin.classList.add('escondida');
+
+            // Mostra o conteúdo do site
+
+            conteudoSite.classList.add('visivel');
+
+        }
+
+        // CLIQUE NO BOTÃO ENTRAR
+
+        btnEntrar.addEventListener('click', entrar);
+
+        // PERMITE ENTRAR APERTANDO ENTER
+
+        campoUsuario.addEventListener('keydown', function(event) {
+
+            if (event.key === 'Enter') {
+                entrar();
+            }
+
+        });
+
+        // MENU PARA CELULAR
+
+        menuBtn.addEventListener('click', function() {
+
+            navLinks.classList.toggle('active');
+
+        });
+
+        // FECHA O MENU DEPOIS DE CLICAR EM UM LINK
+
+        navLinks.querySelectorAll('a').forEach(function(link) {
+
+            link.addEventListener('click', function() {
+
+                navLinks.classList.remove('active');
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
